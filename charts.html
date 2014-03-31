@@ -2,7 +2,41 @@
 <html>
 <head>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
+	<script id="template" type="text/x-handlebars-template">
+		<div class="list-item">
+			<p class="heading"><span class="date">{{date}}</span> - <span class="title">{{title}}</span></p>
+			<p class="description">{{desc}}</p>
+			<p class="tags">
+				{{#tags}}
+				<span class="tag{{@index}}">{{.}}</span> 
+				{{/tags}}
+			</p>
+			<p class="source">{{source}}</p>	
+		</div>
+	</script>
+</head>
+
+<body>
+<header>
+	<h1>Title</h1>
+    <nav>
+        <a class="list-btn" href="javascript:void()">listview</a>
+        <a class="list-btn" href="javascript:void()">chartview</a>
+    </nav>
+</header>
+
+
+<div id="chartview" style="width: 900px; height: 500px;">
+	<!--qui il grafico-->
+</div>
+
+<div id="listview">
+	<!--qui la lista-->
+</div>
+
+<script type="text/javascript">
 	// This is the translation table for the categories
 	var labels = {
 		"0" : "Curiosità",
@@ -20,6 +54,8 @@
 	function getData(data) {
 		var feed = data.feed;
 		var entries = feed.entry || [];
+		var source   = $('#template').html();
+		var template = Handlebars.compile(source);
 		
 		// A dict of categories and their occurrences
 		var categories = {};
@@ -27,17 +63,30 @@
 		for (var i=0; i<entries.length; ++i) {
 			var entry = entries[i];
 			// Get the tags, split them and increment the dict
-			var tags = entry.gsx$tags.$t.split(",");
-			for (var j=0; j<tags.length; ++j) {
-				var label = labels[tags[j]];
+			var tagIds = entry.gsx$tags.$t.split(",");
+			var tags = [];
+			for (var j=0; j<tagIds.length; ++j) {
+				var label = labels[tagIds[j]];
 				if (label in categories) {
 					categories[label] += 1;
 				} else {
 				    categories[label] = 1;
 				}
+				tags.push(label);
 			}
+							
+			var title = entry.gsx$titolo.$t;
+			var desc = entry.gsx$descrizione.$t;
+			var source = entry.gsx$linkofonte.$t;
+			var date = entry.gsx$data.$t;
 			
-			// Here is where we'll generate the html code
+			var rendered = template({
+				"title" : title,
+				"desc" : desc,
+				"source" : source,				
+				"tags" : tags,
+				"date" : date});
+			$('#listview').append(rendered);
 		}
 		
 		// The Google Charts api works well with 2d arrays, thus we need
@@ -57,28 +106,23 @@
 			  is3D: false,
 			};
 
-			var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-			var select_element = document.getElementById('selected_test');
+			var chart = new google.visualization.PieChart(document.getElementById('chartview'));
+			//var select_element = document.getElementById('selected_test');
 			function selectHandler() {
 
 				var selectedItem = chart.getSelection()[0];
 				if (selectedItem) {
 				    var value = data.getValue(selectedItem.row, 0);
-					select_element.textContent = value;
+					//select_element.textContent = value;
 				}
 			}
-			google.visualization.events.addListener(chart, 'select', selectHandler);
+			//google.visualization.events.addListener(chart, 'select', selectHandler);
 			
 			chart.draw(data, options);
 	    }
 	}
-	</script>
-	<script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/0Au00D7FbuAuOdEpVNS1fek5BdnV1Njd6dE1HcXREREE/od6/public/values?alt=json-in-script&callback=getData"></script>	
-	</head>
-<body>
-	<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-	<div>
-		<p id="selected_test">No Selection</p>
-	</div>
+</script>
+<script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/0Au00D7FbuAuOdEpVNS1fek5BdnV1Njd6dE1HcXREREE/od6/public/values?alt=json-in-script&callback=getData"></script>
+
 </body>
 </html>
