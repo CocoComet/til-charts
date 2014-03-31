@@ -1,0 +1,83 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+	// This is the translation table for the categories
+	var labels = {
+		"0" : "Curiosità",
+        "1" : "News",
+        "2" :"Famiglia o amici",
+        "3" : "Arte e Cultura",
+        "4" : "Formazione",
+        "5" : "Lavoro",
+        "6" : "Cibo o Bevande",
+        "7" : "Altro"
+	};
+	
+	// This function is called by the google api with the data
+	// contained in the spreadsheet in json format
+	function getData(data) {
+		var feed = data.feed;
+		var entries = feed.entry || [];
+		
+		// A dict of categories and their occurrences
+		var categories = {};
+		
+		for (var i=0; i<entries.length; ++i) {
+			var entry = entries[i];
+			// Get the tags, split them and increment the dict
+			var tags = entry.gsx$tags.$t.split(",");
+			for (var j=0; j<tags.length; ++j) {
+				var label = labels[tags[j]];
+				if (label in categories) {
+					categories[label] += 1;
+				} else {
+				    categories[label] = 1;
+				}
+			}
+			
+			// Here is where we'll generate the html code
+		}
+		
+		// The Google Charts api works well with 2d arrays, thus we need
+		// to transform our dict representation
+		var chartData = [["Categoria", "Numero"]];
+		for (var cat in categories) {
+			chartData.push([cat, categories[cat]]);
+		}
+		// This is initialization code for the Google Charts api
+		google.load("visualization", "1", {packages:["corechart"]});
+		google.setOnLoadCallback(drawChart);
+	    function drawChart() {
+			var data = google.visualization.arrayToDataTable(chartData);
+
+			var options = {
+			  title: 'Le mie note',
+			  is3D: false,
+			};
+
+			var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+			var select_element = document.getElementById('selected_test');
+			function selectHandler() {
+
+				var selectedItem = chart.getSelection()[0];
+				if (selectedItem) {
+				    var value = data.getValue(selectedItem.row, 0);
+					select_element.textContent = value;
+				}
+			}
+			google.visualization.events.addListener(chart, 'select', selectHandler);
+			
+			chart.draw(data, options);
+	    }
+	}
+	</script>
+	<script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/0Au00D7FbuAuOdEpVNS1fek5BdnV1Njd6dE1HcXREREE/od6/public/values?alt=json-in-script&callback=getData"></script>	
+	</head>
+<body>
+	<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+	<div>
+		<p id="selected_test">No Selection</p>
+	</div>
+</html>
