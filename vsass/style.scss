@@ -1,0 +1,56 @@
+/*! resets */
+	@import "compass/reset";
+	@import "compass/css3";
+
+/* vars */
+$basefontsize: 11px;
+
+//$basecolor: #BC8F8F; //rosybrown
+$basecolor: #D2B48C; //tan
+$dark:desaturate(darken($basecolor, 35), 30);
+$light:desaturate(lighten($basecolor, 25), 10);
+$accent:darken(saturate($basecolor, 50), 15);
+
+/*! style */
+body {
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-family: $basefontsize;
+	background: desaturate(darken($basecolor, 50), 20);
+	*{@include box-sizing(border-box);}
+	a {
+		color:$accent;
+	}
+}
+
+header {
+	background:$dark;
+	color:$light;
+	border:{
+		width:0 1px;
+		style:solid;
+		color:(lighten($dark, 10));
+	}
+}
+.content {
+	background:$light;
+	border:{
+		width:0 1px;
+		style:solid;
+		color:(lighten($light, 10));
+	}
+}
+
+#container {
+	width:96%;
+	margin:auto;
+	border: 1px solid #000;
+	div, header {
+	padding:5px;}
+}
+
+//temp
+#chartview {background:#FFFAF0}
+
+@media (min-width:700px) {
+#container {max-width:600px;}
+}
