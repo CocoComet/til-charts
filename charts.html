@@ -139,9 +139,12 @@
 				if (selectedItem) {
 				    var value = data.getValue(selectedItem.row, 0);
 					var klass = label2class[value];
+					$(".list-item." + klass).show(); 
+					//console.log(".list-item." + klass);
                     // Here is where items should be hidden. The variable klass
                     // containes the class that should be used in the jquery selectors
 				} else {
+					$(".list-item").hide();
                     // Here is where all items have to be restored
                 }
 			}
