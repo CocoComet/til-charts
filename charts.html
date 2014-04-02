@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE HTML>
 <html>
 <head>
+	<meta name="viewport" content="width=device-width" />
+	<!--css est. temporaneo--><link href="style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
@@ -16,24 +18,27 @@
 			<p class="source">{{source}}</p>	
 		</div>
 	</script>
+	
 </head>
 
 <body>
-<header>
-	<h1>Title</h1>
-    <nav>
-        <a class="list-btn" href="javascript:void()">listview</a>
-        <a class="list-btn" href="javascript:void()">chartview</a>
-    </nav>
-</header>
+<div id="container">
+	<header>
+		<h1>Title</h1>
+		<nav>
+			<a class="list-btn" href="javascript:void()">listview</a>
+			<a class="list-btn" href="javascript:void()">chartview</a>
+		</nav>
+	</header>
 
 
-<div id="chartview" style="width: 900px; height: 500px;">
-	<!--qui il grafico-->
-</div>
+	<div id="chartview" class="content">  <!-- style="width: 900px; height: 500px;" -->
+		<!--qui il grafico-->
+	</div>
 
-<div id="listview">
-	<!--qui la lista-->
+	<div id="listview" class="content">
+		<!--qui la lista-->
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -102,8 +107,12 @@
 			var data = google.visualization.arrayToDataTable(chartData);
 
 			var options = {
-			  title: 'Le mie note',
+			  //title: 'Le mie note',
 			  is3D: false,
+			  //adding layout and styling options
+			  legend:{position: 'bottom'},
+			  backgroundColor:'#FFFAF0',
+			  chartArea:{width:"100%"},
 			};
 
 			var chart = new google.visualization.PieChart(document.getElementById('chartview'));
@@ -119,6 +128,7 @@
 			//google.visualization.events.addListener(chart, 'select', selectHandler);
 			
 			chart.draw(data, options);
+			
 	    }
 	}
 </script>
