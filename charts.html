@@ -79,16 +79,18 @@
 		for (var i=0; i<entries.length; ++i) {
 			var entry = entries[i];
 			// Get the tags, split them and increment the dict
-			var tagIds = entry.gsx$tags.$t.split(",");
+			var tagIds = entry.gsx$tags.$t.split(",") || [];
 			var tags = [];
 			for (var j=0; j<tagIds.length; ++j) {
 				var label = labels[tagIds[j]];
-				if (label in categories) {
-					categories[label] += 1;
-				} else {
-				    categories[label] = 1;
+				if (label) {
+					if (label in categories) {
+						categories[label] += 1;
+					} else {
+					    categories[label] = 1;
+					}
+					tags.push(label);
 				}
-				tags.push(label);
 			}
 							
 			var title = entry.gsx$titolo.$t;
