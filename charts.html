@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
 	<script id="template" type="text/x-handlebars-template">
-		<div class="list-item">
+		<div class="list-item{{#classes}} {{.}}{{/classes}}">
 			<p class="heading"><span class="date">{{date}}</span> - <span class="title">{{title}}</span></p>
 			<p class="description">{{desc}}</p>
 			<p class="tags">
@@ -46,13 +46,24 @@
 	var labels = {
 		"0" : "Curiosità",
         "1" : "News",
-        "2" :"Famiglia o amici",
+        "2" : "Famiglia o amici",
         "3" : "Arte e Cultura",
         "4" : "Formazione",
         "5" : "Lavoro",
         "6" : "Cibo o Bevande",
         "7" : "Altro"
 	};
+
+    var label2class = {
+        "Curiosità" : "curiosita",
+        "News" : "news",
+        "Famiglia o amici" : "amici",
+        "Arte e Cultura" : "arte",
+        "Formazione" : "formazione",
+        "Lavoro" : "lavoro",
+        "Cibo o Bevande" : "cibo",
+        "Altro" : "altro"
+    }
 	
 	// This function is called by the google api with the data
 	// contained in the spreadsheet in json format
@@ -85,11 +96,14 @@
 			var source = entry.gsx$linkofonte.$t;
 			var date = entry.gsx$data.$t;
 			
+            var classes = $.map(tags, function(item, _) { return label2class[item]; });
+
 			var rendered = template({
 				"title" : title,
 				"desc" : desc,
 				"source" : source,				
 				"tags" : tags,
+                "classes" : classes,
 				"date" : date});
 			$('#listview').append(rendered);
 		}
@@ -116,23 +130,27 @@
 			};
 
 			var chart = new google.visualization.PieChart(document.getElementById('chartview'));
-			//var select_element = document.getElementById('selected_test');
+			
 			function selectHandler() {
 
 				var selectedItem = chart.getSelection()[0];
 				if (selectedItem) {
 				    var value = data.getValue(selectedItem.row, 0);
-					//select_element.textContent = value;
-				}
+					var klass = label2class[value];
+                    // Here is where items should be hidden. The variable klass
+                    // containes the class that should be used in the jquery selectors
+				} else {
+                    // Here is where all items have to be restored
+                }
 			}
-			//google.visualization.events.addListener(chart, 'select', selectHandler);
+			google.visualization.events.addListener(chart, 'select', selectHandler);
 			
 			chart.draw(data, options);
 			
 	    }
 	}
 </script>
-<script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/0Au00D7FbuAuOdEpVNS1fek5BdnV1Njd6dE1HcXREREE/od6/public/values?alt=json-in-script&callback=getData"></script>
+<script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/0Au00D7FbuAuOdEpVNS1fek5BdnV1Njd6dE1HcXREREE/od6/public/values?alt=json-in-script&amp;callback=getData"></script>
 
 </body>
 </html>
