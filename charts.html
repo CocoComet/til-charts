@@ -72,7 +72,8 @@
         "Formazione" : "formazione",
         "Lavoro" : "lavoro",
         "Cibo o Bevande" : "cibo",
-        "Altro" : "altro"
+        "Altro" : "altro",
+        "Nessun Tag" : "nessuno"
     }
 	
 	// This function is called by the google api with the data
@@ -93,14 +94,16 @@
 			var tags = [];
 			for (var j=0; j<tagIds.length; ++j) {
 				var label = labels[tagIds[j]];
-				if (label) {
-					if (label in categories) {
-						categories[label] += 1;
-					} else {
-					    categories[label] = 1;
-					}
-					tags.push(label);
+				if (!label) {
+					label = "Nessun Tag";
 				}
+
+				if (label in categories) {
+					categories[label] += 1;
+				} else {
+				    categories[label] = 1;
+				}
+				tags.push(label);
 			}
 							
 			var title = entry.gsx$titolo.$t;
