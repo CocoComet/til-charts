@@ -3,10 +3,11 @@
 	@import "compass/css3";
 
 /* vars */
-$basefontsize: 11px;
+$basefontsize: 14px; //raccapezzarsi con le unità di misura!!!
+$baseline: $basefontsize*1.5;
 
 //$basecolor: #BC8F8F; //rosybrown
-$basecolor: #D2B48C; //tan
+$basecolor: #E2B48C; /* tan */
 $dark:desaturate(darken($basecolor, 35), 30);
 $light:desaturate(lighten($basecolor, 25), 10);
 $accent:darken(saturate($basecolor, 50), 15);
@@ -14,7 +15,7 @@ $accent:darken(saturate($basecolor, 50), 15);
 /*! style */
 body {
 	font-family: "Trebuchet MS", Helvetica, sans-serif;
-	font-family: $basefontsize;
+	font-size: $basefontsize;
 	background: desaturate(darken($basecolor, 50), 20);
 	*{@include box-sizing(border-box);}
 	a {
@@ -31,6 +32,15 @@ header {
 		color:(lighten($dark, 10));
 	}
 }
+p{
+	line-height:$baseline;
+	margin-bottom:$baseline/2;
+}
+h1,h2,h3{
+	line-height:$baseline*2;
+	margin-bottom:$baseline
+}
+
 .content {
 	background:$light;
 	border:{
@@ -44,13 +54,56 @@ header {
 	width:96%;
 	margin:auto;
 	border: 1px solid #000;
-	div, header {
-	padding:5px;}
+	header, .content {
+	padding:$baseline;
+	}
 }
 
-//temp
-#chartview {background:#FFFAF0}
 
 @media (min-width:700px) {
 #container {max-width:600px;}
 }
+
+.list-item {
+	padding:$baseline 0 $baseline/2;
+	border-top: 1px solid $basecolor;
+	&:last-child {
+		border-top: 1px solid $basecolor;	
+	}
+	
+}
+
+.heading {
+	font-weight:bold;
+}
+
+.tags {
+	color:$light;
+	font-size: 90%;
+	text-align: justify;
+	span {
+		display:inline-block;
+		padding:0 0.5rem;
+		margin-bottom: 0.1rem;
+		background: $basecolor;
+		&:first-child {margin-left:0}
+		&:last-child {margin-left:0}
+	}
+}
+.tag0 {background: greyscale($basecolor)}
+
+/*
+.tag0 {background: darken(#8dd3c7, 20)}
+.tag1 {background: darken(#ffffb3, 20)}
+.tag2 {background: darken(#bebada, 20)}
+.tag3 {background: darken(#fb8072, 20)}
+.tag4 {background: darken(#80b1d3, 20)}
+.tag5 {background: darken(#fdb462, 20)}
+.tag6 {background: darken(#b3de69, 20)}
+.tag7 {background: darken(#fccde5, 20)}
+.tag8 {background: darken(#d9d9d9, 20)}
+*/
+
+//temp
+#chartview {background:#FFFAF0}
+

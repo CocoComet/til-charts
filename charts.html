@@ -47,7 +47,6 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var dimens = $(".content").width();
-		console.log(dimens);
 		$("#chartview").css({"width":dimens, "height":dimens});
 	});
 </script>
@@ -143,7 +142,8 @@
 			  backgroundColor:'#FFFAF0',
 			  chartArea:{width:"100%"},
 			  tooltip: {trigger: 'none'},
-			  legend: 'labeled'
+			  legend: 'labeled',
+			  colors: ['#177F75', '#B6212D', '#21B6A8', '#B67721', '#f6c7b6', '#e4493e', '#ac8f6e', '#ccb49f', '#f6c7cc']
 			};
 
 			var chart = new google.visualization.PieChart(document.getElementById('chartview'));
