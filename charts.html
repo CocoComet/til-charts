@@ -7,13 +7,13 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 	<script type="text/javascript" src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
 	<script id="template" type="text/x-handlebars-template">
-		<div class="list-item{{#classes}} {{.}}{{/classes}}">
+		<div class="list-item{{#each tags}} {{this.class}}{{/each}}">
 			<p class="heading"><span class="date">{{date}}</span> - <span class="title">{{title}}</span></p>
 			<p class="description">{{desc}}</p>
 			<p class="tags">
-				{{#tags}}
-				<span class="tag{{@index}}">{{.}}</span> 
-				{{/tags}}
+				{{#each tags}}
+				<span class="{{this.class}}">{{this.label}}</span> 
+				{{/each}}
 			</p>
 			<p class="source">{{source}}</p>	
 		</div>
@@ -102,7 +102,7 @@
 				} else {
 				    categories[label] = 1;
 				}
-				tags.push(label);
+				tags.push({"label" : label, "class" : label2class[label]});
 			}
 							
 			var title = entry.gsx$titolo.$t;
@@ -110,14 +110,11 @@
 			var source = entry.gsx$linkofonte.$t;
 			var date = entry.gsx$data.$t;
 			
-            var classes = $.map(tags, function(item, _) { return label2class[item]; });
-
 			var rendered = template({
 				"title" : title,
 				"desc" : desc,
 				"source" : source,				
 				"tags" : tags,
-                "classes" : classes,
 				"date" : date});
 			$('#listview').append(rendered);
 		}
