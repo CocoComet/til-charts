@@ -93,16 +93,27 @@ h1,h2,h3{
 .tag0 {background: greyscale($basecolor)}
 
 /*
-.tag0 {background: darken(#8dd3c7, 20)}
-.tag1 {background: darken(#ffffb3, 20)}
-.tag2 {background: darken(#bebada, 20)}
-.tag3 {background: darken(#fb8072, 20)}
-.tag4 {background: darken(#80b1d3, 20)}
-.tag5 {background: darken(#fdb462, 20)}
-.tag6 {background: darken(#b3de69, 20)}
-.tag7 {background: darken(#fccde5, 20)}
-.tag8 {background: darken(#d9d9d9, 20)}
+darken(#8dd3c7, 20)}
+darken(#ffffb3, 20)}
+darken(#bebada, 20)}
+darken(#fb8072, 20)}
+darken(#80b1d3, 20)}
+darken(#fdb462, 20)}
+darken(#b3de69, 20)}
+darken(#fccde5, 20)}
+darken(#d9d9d9, 20)}
 */
+span.tag0 {background: #177F75}
+span.tag1 {background: #B6212D}
+span.tag2 {background: #21B6A8}
+span.tag3 {background: #B67721}
+span.tag4 {background: #83422a}
+span.tag5 {background: #e4493e}
+span.tag6 {background: #94b664}
+span.tag7 {background: #dba06c}
+span.tag8 {background: #666666}
+
+
 
 //temp
 #chartview {background:#FFFAF0}
