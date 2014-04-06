@@ -63,17 +63,44 @@
         "7" : "Altro"
 	};
 
-    var label2class = {
-        "Curiosità" : "tag0",
-        "News" : "tag1",
-        "Famiglia o amici" : "tag2",
-        "Arte e Cultura" : "tag3",
-        "Formazione" : "tag4",
-        "Lavoro" : "tag5",
-        "Cibo o Bevande" : "tag6",
-        "Altro" : "tag7",
-        "Nessun Tag" : "tag8"
-    }
+    var labelData = {
+        "Curiosità" : {
+        	"class" : "tag0",
+        	"color" : "#177F75"
+        },
+        "News" : {
+        	"class" : "tag1",
+        	"color" : "#B6212D"
+        },
+        "Famiglia o amici" : {
+        	"class" : "tag2",
+        	"color" : "#21B6A8"
+        },
+        "Arte e Cultura" : {
+        	"class" : "tag3",
+        	"color" : "#B67721"
+        },
+        "Formazione" : {
+        	"class" : "tag4",
+        	"color" : "#83422a"
+        },
+        "Lavoro" : {
+        	"class" : "tag5",
+        	"color" : "#e4493e"
+        },
+        "Cibo o Bevande" : {
+        	"class" : "tag6",
+        	"color" : "#94b664"
+        },
+        "Altro" : {
+        	"class" : "tag7",
+        	"color" : "#dba06c"
+        },
+        "Nessun Tag" : {
+        	"class" : "tag8",
+        	"color" : "#666666"
+        }
+    };	
 	
 	// This function is called by the google api with the data
 	// contained in the spreadsheet in json format
@@ -102,7 +129,7 @@
 				} else {
 				    categories[label] = 1;
 				}
-				tags.push({"label" : label, "class" : label2class[label]});
+				tags.push({"label" : label, "class" : labelData[label]["class"]});
 			}
 							
 			var title = entry.gsx$titolo.$t;
@@ -122,8 +149,10 @@
 		// The Google Charts api works well with 2d arrays, thus we need
 		// to transform our dict representation
 		var chartData = [["Categoria", "Numero"]];
+		var colors = [];
 		for (var cat in categories) {
 			chartData.push([cat, categories[cat]]);
+			colors.push(labelData[cat]["color"]);
 		}
 		// This is initialization code for the Google Charts api
 		google.load("visualization", "1", {packages:["corechart"]});
@@ -140,7 +169,7 @@
 			  chartArea:{width:"100%"},
 			  tooltip: {trigger: 'none'},
 			  legend: 'labeled',
-			  colors: ['#177F75', '#B6212D', '#21B6A8', '#B67721', '#83422a', '#e4493e', '#94b664', '#dba06c', '#666666']
+			  colors : colors
 			};
 
 			var chart = new google.visualization.PieChart(document.getElementById('chartview'));
