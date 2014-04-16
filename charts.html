@@ -12,7 +12,7 @@
 			<p class="description">{{desc}}</p>
 			<p class="tags">
 				{{#each tags}}
-				<span class="{{this.class}}">{{this.label}}</span> 
+				<span class="{{this.class}}" role="button">{{this.label}}</span> 
 				{{/each}}
 			</p>
 			<p class="source">{{source}}</p>	
@@ -48,6 +48,15 @@
 	$(document).ready(function() {
 		var dimens = $(".content").width();
 		$("#chartview").css({"width":dimens, "height":dimens});
+		
+		$(".tags span").click(function() {
+			console.log("ok 1");
+			selectedItem = $(this).attr("class");
+			console.log(selectedItem);
+			inDiv = $(".list-item." + selectedItem);
+			$(".list-item").fadeOut();
+			$(inDiv).fadeIn();
+		});
 	});
 </script>
 <script type="text/javascript">
@@ -165,7 +174,7 @@
 			  is3D: false,
 			  //adding layout and styling options
 			  //legend:{position: 'bottom'},
-			  backgroundColor:'#FFFAF0',
+			  backgroundColor:'#fbf6f3',
 			  chartArea:{width:"100%"},
 			  tooltip: {trigger: 'none'},
 			  legend: 'labeled',
@@ -180,7 +189,7 @@
 				var selectedItem = chart.getSelection()[0];
 				if (selectedItem) {
 				    var value = data.getValue(selectedItem.row, 0);
-					var klass = label2class[value];
+					var klass = labelData[value]["class"];
 					//$(".list-item").slideUp();
 					$(".list-item." + klass).fadeIn(); 
 					//console.log(" showing .list-item." + klass);
