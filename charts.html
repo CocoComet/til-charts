@@ -50,12 +50,9 @@
 		$("#chartview").css({"width":dimens, "height":dimens});
 		
 		$(".tags span").click(function() {
-			console.log("ok 1");
 			selectedItem = $(this).attr("class");
-			console.log(selectedItem);
-			inDiv = $(".list-item." + selectedItem);
 			$(".list-item").fadeOut();
-			$(inDiv).fadeIn();
+			$(".list-item." + selectedItem).fadeIn();
 		});
 	});
 </script>
