@@ -24,6 +24,7 @@ body {
 }
 
 header {
+	overflow:hidden;
 	background:$dark;
 	color:$light;
 	border:{
@@ -31,14 +32,26 @@ header {
 		style:solid;
 		color:(lighten($dark, 10));
 	}
+	h1 {float:left;}
+	nav {float:right;}	
+	a {
+		font-size: $basefontsize*1.2;
+		background:$accent;
+		color:$dark;
+		text-decoration:none;
+		padding:$baseline/2 ;
+		&:hover {background:(lighten($accent, 20));}
+	}
+
 }
 p{
 	line-height:$baseline;
 	margin-bottom:$baseline/2;
 }
 h1,h2,h3{
-	line-height:$baseline*2;
-	margin-bottom:$baseline
+	/* line-height:$baseline*2;
+	margin-bottom:$baseline; */
+	font-size: $basefontsize*1.6;
 }
 
 .content {
@@ -58,7 +71,6 @@ h1,h2,h3{
 	padding:$baseline;
 	}
 }
-
 
 @media (min-width:700px) {
 #container {max-width:600px;}
@@ -118,5 +130,37 @@ span.tag8 {background: #666666}
 
 //temp
 #chartview {background:#FFFAF0}
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot?-p3uuuh');
+	src:url('fonts/icomoon.eot?#iefix-p3uuuh') format('embedded-opentype'),
+		url('fonts/icomoon.woff?-p3uuuh') format('woff'),
+		url('fonts/icomoon.ttf?-p3uuuh') format('truetype'),
+		url('fonts/icomoon.svg?-p3uuuh#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-pie:before {
+	content: "\e600";
+}
+.icon-list:before {
+	content: "\e601";
+}
+
 
 
