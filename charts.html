@@ -4,8 +4,8 @@
 	<meta name="viewport" content="width=device-width" />
 	<!--css est. temporaneo--><link href="style.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-	<script type="text/javascript" src="http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.3.0.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+	<script type="text/javascript" src="handlebars-v1.3.0.js"></script>
 	<script id="template" type="text/x-handlebars-template">
 		<div class="list-item{{#each tags}} {{this.class}}{{/each}}">
 			<p class="heading"><span class="date">{{date}}</span> - <span class="title">{{title}}</span></p>
@@ -16,7 +16,7 @@
 				{{/each}}
 			</p>
 			<p class="source">{{source}}</p>	
-		</div>
+		</div>	
 	</script>
 	
 </head>
@@ -209,7 +209,7 @@
 	    }
 	}
 </script>
-<script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/0Au00D7FbuAuOdEpVNS1fek5BdnV1Njd6dE1HcXREREE/od6/public/values?alt=json-in-script&amp;callback=getData"></script>
+<script type="text/javascript" src="https://spreadsheets.google.com/feeds/list/0Au00D7FbuAuOdEpVNS1fek5BdnV1Njd6dE1HcXREREE/oda/public/values?alt=json-in-script&amp;callback=getData"></script>
 
 </body>
 </html>
