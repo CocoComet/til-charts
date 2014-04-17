@@ -7,9 +7,9 @@ $basefontsize: 14px; //raccapezzarsi con le unità di misura!!!
 $baseline: $basefontsize*1.5;
 
 //$basecolor: #BC8F8F; //rosybrown
-$basecolor: #E2B48C; /* tan */
-$dark:desaturate(darken($basecolor, 35), 30);
-$light:desaturate(lighten($basecolor, 25), 10);
+$basecolor: #dabfa7; /* tan */
+$dark:desaturate(darken($basecolor, 35), 20);
+$light:desaturate(lighten($basecolor, 20), 10);
 $accent:darken(saturate($basecolor, 50), 15);
 
 /*! style */
@@ -27,6 +27,11 @@ header {
 	overflow:hidden;
 	background:$dark;
 	color:$light;
+	position: fixed;
+	z-index: 200;
+	top: 0;
+	width:100%;
+
 	border:{
 		width:0 1px;
 		style:solid;
@@ -56,6 +61,7 @@ h1,h2,h3{
 
 .content {
 	background:$light;
+	padding: 40px $baseline;
 	border:{
 		width:0 1px;
 		style:solid;
@@ -67,13 +73,14 @@ h1,h2,h3{
 	width:96%;
 	margin:auto;
 	border: 1px solid #000;
-	header, .content {
+	header {
 	padding:$baseline;
 	}
 }
 
 @media (min-width:700px) {
-#container {max-width:600px;}
+#container {max-width:500px;}
+header {	width: 498px;}
 }
 
 .list-item {
