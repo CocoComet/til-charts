@@ -62,6 +62,7 @@ h1,h2,h3{
 .content {
 	background:$light;
 	padding: 40px $baseline;
+	height: 100%;
 	border:{
 		width:0 1px;
 		style:solid;
@@ -70,8 +71,12 @@ h1,h2,h3{
 }
 
 #container {
-	width:96%;
-	margin:auto;
+	margin:0;
+	position: absolute;
+	width:100%;
+	top:0;
+	bottom:0;
+	overflow:hidden;
 	border: 1px solid #000;
 	header {
 	padding:$baseline;
@@ -79,9 +84,9 @@ h1,h2,h3{
 }
 
 @media (min-width:700px) {
-#container {max-width:500px;}
-header {	width: 498px;}
-}
+#container {width:50%;}
+//header {	width: 498px;}
+} 
 
 .list-item {
 	padding:$baseline 0 $baseline/2;
@@ -168,5 +173,6 @@ span.tag8 {background: #666666}
 .icon-list:before {
 	content: "\e601";
 }
+
 
 
